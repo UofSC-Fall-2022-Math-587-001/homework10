@@ -1,4 +1,4 @@
-## Homework 9
+## Homework 10
 
 This week we have a written part and an implementation part. 
 
@@ -15,4 +15,4 @@ Note: when you submit, your filename must be `solutions.pdf` and it must be a pd
 
 ### Implementation part 
 
-Write a program to compute the B-smooth numbers up to a given N. 
+Implement Step 1 of the quadratic sieve. 

@@ -1,8 +1,8 @@
-package hw9
+package hw10
 
 import (
 	"math"
-	"github.com/UofSC-Fall-2022-Math-587-001/homework9/library"
+	"github.com/UofSC-Fall-2022-Math-587-001/homework10/library"
 )
 
 // Computes the primes <= B. Is correct assuming the validity of the 
