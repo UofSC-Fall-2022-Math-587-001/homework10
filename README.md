@@ -15,4 +15,5 @@ Note: when you submit, your filename must be `solutions.pdf` and it must be a pd
 
 ### Implementation part 
 
-Implement Step 1 of the quadratic sieve. 
+Implement the Tonelli-Shanks algorithm for finding square roots modulo a power 
+of a prime.

@@ -1,5 +1,7 @@
 package library
 
+import "math"
+
 // A modification of the built-in modulus % which 
 // always returns a positive remainder 
 func ModN(N uint, i int) int {
@@ -142,5 +144,53 @@ func MillerRabinTest(N, a int) bool {
 
 	// 9. Return Composite
 	return true
+}
+
+func FactorBase(B int) []int {
+	// compute the primes <= B
+	// works assuming the extended Riemann hypothesis 
+	var primes []int 
+	for n := 2; n <= B; n++ {
+		upperbound := 2*math.Log(float64(n))*math.Log(float64(n))
+		upperbound = math.Min(float64(n),upperbound-1)
+		composite := false 
+		for a := 2; a <= int(upperbound); a++ {
+			b := MillerRabinTest(n,a) 
+			if b {
+				composite = true 
+				break
+			}
+		}
+		if !composite {
+			primes = append(primes, n)
+		}
+	}
+	return primes
+}
+
+func MaxPowerDiv(p, n int) int {
+	e := 0
+	for (n % p) == 0 {
+		n = n / p
+		e += 1
+	}
+	return e 
+}
+
+func IsBSmooth(n int,l []int) bool {
+	// Return true if n is B-smooth and false if not 
+	primes := l
+	m := n 
+	for _, p := range(primes) {
+		if p > m {
+			break
+		}
+		e := MaxPowerDiv(p,m)
+		m = m / int(math.Pow(float64(p),float64(e)))
+	}
+	if m == 1 {
+		return true
+	}
+	return false
 }
 

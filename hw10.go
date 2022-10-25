@@ -5,54 +5,49 @@ import (
 	"github.com/UofSC-Fall-2022-Math-587-001/homework10/library"
 )
 
-// Computes the primes <= B. Is correct assuming the validity of the 
-// extended Riemann hypothesis (ERH). If you don't believe the ERH, then 
-// you can change the upper bound to n/4+1, which boosts complexity 
-// to exponential in the number of bits of n
-func FactorBase(B int) []int {
-	var primes []int 
-	for n := 2; n <= B; n++ {
-		// a consequence of the ERH is that we have the following
-		// upper bound on a Miller-Rabin witness for n 
-		upperbound := 2*math.Log(float64(n))*math.Log(float64(n))
-		// for small numbers, this upperbound is a little too big
-		upperbound = math.Min(float64(n),upperbound-1)
-		composite := false // keeps track of non-primalty  
-		for a := 2; a <= int(upperbound); a++ {
-			// evaluate the Miller-Rabin test with n and a 
-			b := library.MillerRabinTest(n,a) 
-			// if it returns true (= composite) then mark 
-			// n as composite and quit the for loop
-			if b {
-				composite = true 
-				break
-			}
-		}
-		// if we made it through all the possible MR witnesses 
-		// without turning composite then we are prime 
-		if !composite {
-			primes = append(primes, n)
-		}
-	}
-	return primes
+// "math"
+// "github.com/UofSC-Fall-2022-Math-587-001/homework10/library"
+
+// Use Euler's Criteria (Exercise 3.37b) to give an efficient algorithm
+// to determine if x^2 = a mod p has a solution for odd p and gcd(a,p) = 1
+// In other words, EulerCrit(p,a) determines if a is a quadratic residue
+// modulo p
+func EulerCrit(p, a int) bool {
+	return false 
 }
 
-func IsBSmooth(n int,l []int) bool {
-	// Return true if n is B-smooth and false if not 
-	return false
+/// GetQuadNonRes(p) returns a quadratic non-residue 
+func GetQuadNonRes(p int) int {
+	return 0 
 }
 
-func Psi(B, N int) []int {
-	// Computes the number of B-smooth integers <= N 
-	var bsmooth []int 
-	primes := FactorBase(B)
-	for i := 2; i <= N; i++ {
-		// i is B-smooth for our factor base then add it 
-		// to the slice
-		if IsBSmooth(i,primes) {
-			bsmooth = append(bsmooth, i)
-		}
-	}	
-	return bsmooth
+// TonelliShanks(p,a) returns the solutions of x^2 = a mod p for a prime p
+func TonelliShanks(p, a int) (bool,[]int) {
+	// If p = 2, then a^2 = a mod 2 so return true, [a]. Next 
+	// check using Euler's criteria that a is a quadratic residue mod p 
+	// if so return false and the empty slice
+	// If p = 3 mod 4, then check that a^{(p+1)/4} is a square root of 
+	// a. If not, return false and the empty slice. Otherwise 
+	// return true, [r,(-r) mod p] 
+	// Find a quadratic non-residue modulo p 
+	// Factor p-1 into 2^s*q for q odd 
+	// Initialize d = (q+1)/2, x = a^q mod p, c = z^q mod p and 
+	// r = a^d mod p 
+	// Loop while x != 1
+	//  - if x = 0, then return true, [0]
+	//  - else compute the minimal i such that x^{2^i} = 1 
+	//    let b = c^{2*s - i -1} mod p, s = i, c = b^2 mod p, 
+	//    x = x*c mod p, and r = r*b mod p 
+	return false, []int{}
 }
+
+// GenTonelliShanks(p,e,a) returns the solutions of x^2 = a mod p^e for a 
+// prime p and a with gcd(a,p) = 1
+func GenTonelliShanks(p, e, a int) (bool,[]int) {
+	// Use recursion. Assume you have a solution to z^2 = a mod p^{e-1} 
+	// and search for a solution x = z + p^{e-1}y for 0 <= y < p to 
+	// x^2 = a mod p^e 
+	return false, []int{}
+}
+
 
